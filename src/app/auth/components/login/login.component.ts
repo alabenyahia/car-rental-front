@@ -34,7 +34,7 @@ import {RouterLink} from "@angular/router";
 })
 export class LoginComponent {
 
-  validateForm: FormGroup<{
+  loginForm: FormGroup<{
     email: FormControl<string>;
     password: FormControl<string>;
   }> = this.fb.group({
@@ -43,10 +43,10 @@ export class LoginComponent {
   });
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+    if (this.loginForm.valid) {
+      console.log('submit', this.loginForm.value);
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.loginForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });

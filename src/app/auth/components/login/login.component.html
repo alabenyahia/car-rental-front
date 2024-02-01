@@ -1,5 +1,5 @@
 <div class="login-form-container">
-  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
 
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your email!">
@@ -17,7 +17,7 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Login</button>
+    <button [disabled]="loginForm.invalid" nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Login</button>
     Already a member?
     <a routerLink="/register">register now!</a>
   </form>

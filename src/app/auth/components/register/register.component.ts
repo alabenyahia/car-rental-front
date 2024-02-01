@@ -26,7 +26,7 @@ import {RouterLink} from "@angular/router";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  validateForm: FormGroup<{
+  registerForm: FormGroup<{
     name: FormControl<string>;
     email: FormControl<string>;
     password: FormControl<string>;
@@ -37,10 +37,10 @@ export class RegisterComponent {
   });
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+    if (this.registerForm.valid) {
+      console.log('submit', this.registerForm.value);
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.registerForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
