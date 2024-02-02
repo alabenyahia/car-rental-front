@@ -12,6 +12,7 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {RouterLink} from "@angular/router";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,9 @@ import {RouterLink} from "@angular/router";
 })
 export class LoginComponent {
 
+  constructor(private fb: NonNullableFormBuilder, private authService: AuthService) {}
+
+
   loginForm: FormGroup<{
     email: FormControl<string>;
     password: FormControl<string>;
@@ -42,9 +46,12 @@ export class LoginComponent {
     email: ['', [Validators.email, Validators.required]],
   });
 
-  submitForm(): void {
+  login(): void {
     if (this.loginForm.valid) {
       console.log('submit', this.loginForm.value);
+      this.authService.login(this.loginForm.value).subscribe(res => {
+        console.log(res)
+      });
     } else {
       Object.values(this.loginForm.controls).forEach(control => {
         if (control.invalid) {
@@ -54,6 +61,5 @@ export class LoginComponent {
       });
     }
   }
-  constructor(private fb: NonNullableFormBuilder) {}
 
 }
