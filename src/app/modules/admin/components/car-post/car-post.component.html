@@ -1,0 +1,106 @@
+<div>
+
+
+  <form nz-form [formGroup]="postCarForm" (ngSubmit)="postCar()" class="post-car-form">
+    <h1 nz-typography>Post a car</h1>
+
+    <div>
+      <label for="upload_profile_image" *ngIf="selectedFile">
+        <img [ngSrc]="imagePreview" alt="profile" width="170" height="170"/>
+      </label>
+      <input type="file" nz-button  id="upload_profile_image" accept="image/x-png,image/gif,image/jpeg"
+             (change)="onFileSelected($event)">
+      <button nz-button nzShape="circle"></button>
+    </div>
+
+    <div>
+      <nz-form-item >
+        <nz-form-control nzErrorTip="Please select car brand!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a brand" formControlName="brand">
+            @for (brand of listOfBrands; track brand) {
+              <nz-option  nzLabel={{brand}} nzValue={{brand}}></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter car name!">
+          <input nz-input placeholder="Enter a name" type="text" formControlName="name"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter car type!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a type" formControlName="type">
+            @for (type of listOfTypes; track type) {
+              <nz-option  nzLabel={{type}} nzValue={{type}}></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please select car transmission!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a transmission" formControlName="transmission">
+            @for (transmission of listOfTransmissions; track transmission) {
+              <nz-option  nzLabel={{transmission}} nzValue={{transmission}}></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please select car color!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a color" formControlName="color">
+            @for (color of listOfColors; track color) {
+              <nz-option  nzLabel={{color}} nzValue={{color}}></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div style="width: 100%">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter car model year!">
+          <nz-year-picker style="width: 100%"  formControlName="year" nzPlaceHolder="Model year"></nz-year-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter car price!">
+          <input nz-input placeholder="Enter the price" type="number" formControlName="price"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please enter car description!">
+          <input nz-input placeholder="Enter a description" type="text" formControlName="description"/>
+        </nz-form-control>
+
+      </nz-form-item>
+    </div>
+
+    <div>
+      <nz-form-item>
+        <nz-form-control >
+          <button [disabled]="postCarForm.invalid" nz-button nzType="primary">Add the car</button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </form>
+</div>

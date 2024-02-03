@@ -1,0 +1,8 @@
+.post-car-form {
+  max-width: 600px;
+  margin: 24px auto;
+}
+
+.post-car-form > * {
+  margin-bottom: 16px;
+}
