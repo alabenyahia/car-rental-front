@@ -11,8 +11,10 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
+import {StorageService} from "../../services/storage/storage.service";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-login',
@@ -35,7 +37,10 @@ import {AuthService} from "../../services/auth/auth.service";
 })
 export class LoginComponent {
 
-  constructor(private fb: NonNullableFormBuilder, private authService: AuthService) {}
+  constructor(private fb: NonNullableFormBuilder,
+              private authService: AuthService,
+              private router: Router,
+              private message: NzMessageService) {}
 
 
   loginForm: FormGroup<{
@@ -51,6 +56,24 @@ export class LoginComponent {
       console.log('submit', this.loginForm.value);
       this.authService.login(this.loginForm.value).subscribe(res => {
         console.log(res)
+        if (res.userId != null) {
+          const user = {
+            id: res.userId,
+            role: res.userRole
+          }
+
+          StorageService.saveUser(user);
+          StorageService.saveToken(res.jwt);
+
+          if (StorageService.isAdminLoggedIn()) {
+            this.router.navigateByUrl("/admin/dashboard");
+          } else if (StorageService.isCustomerLoggedIn()) {
+            this.router.navigateByUrl("/customer/dashboard")
+          }
+        } else {
+          console.log("baddd cred");
+          this.message.error("Bad credentials", {nzDuration: 3500});
+        }
       });
     } else {
       Object.values(this.loginForm.controls).forEach(control => {
