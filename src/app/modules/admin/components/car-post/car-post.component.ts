@@ -10,6 +10,9 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
 import {NzTransitionPatchDirective} from "ng-zorro-antd/core/transition-patch/transition-patch.directive";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {StorageService} from "../../../../auth/services/storage/storage.service";
+import {AdminService} from "../../services/admin.service";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-car-post',
@@ -44,7 +47,10 @@ export class CarPostComponent {
   listOfColors = ["Red", "White", "Blue", "Black", "Orange", "Grey", "Silver"];
   listOfTransmissions = ["Manual", "Automatic"];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private adminService: AdminService,
+              private message: NzMessageService,
+              private router: Router) {}
 
   ngOnInit() {
     this.postCarForm = this.fb.group({
@@ -63,7 +69,7 @@ export class CarPostComponent {
     if (this.postCarForm.valid) {
       console.log(this.postCarForm.value)
       const formData: FormData = new FormData();
-      formData.append("img", this.selectedFile);
+      formData.append("image", this.selectedFile);
       formData.append("brand", this.postCarForm.get("brand")!.value)
       formData.append("name", this.postCarForm.get("name")!.value)
       formData.append("type", this.postCarForm.get("type")!.value)
@@ -73,6 +79,13 @@ export class CarPostComponent {
       formData.append("description", this.postCarForm.get("description")!.value)
       formData.append("price", this.postCarForm.get("price")!.value)
       console.log(formData);
+      this.adminService.postCar(formData).subscribe(res => {
+        this.message.success("Car posted successfully", {nzDuration: 3500});
+        this.router.navigateByUrl("/admin/dashboard")
+        console.log(res);
+      }, error => {
+        this.message.error("Error while posting car", {nzDuration: 3500});
+      })
     } else {
       Object.values(this.postCarForm.controls).forEach(control => {
         if (control.invalid) {
