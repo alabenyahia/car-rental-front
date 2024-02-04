@@ -3,6 +3,7 @@ import {AdminService} from "../../services/admin.service";
 import {DatePipe, NgOptimizedImage} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,7 +11,8 @@ import {NzMessageService} from "ng-zorro-antd/message";
   imports: [
     NgOptimizedImage,
     DatePipe,
-    NzButtonComponent
+    NzButtonComponent,
+    RouterLink
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
