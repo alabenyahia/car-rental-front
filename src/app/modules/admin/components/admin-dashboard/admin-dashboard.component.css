@@ -15,7 +15,12 @@
   border-radius: 12px;
 }
 
-.car-name-info-container > h2 {
+.car-name-info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.car-name-info-container > div > h2 {
   margin-bottom: 0;
   color: royalblue;
   cursor: pointer;
