@@ -41,7 +41,6 @@ export class CarPostComponent {
   postCarForm!: FormGroup;
   selectedFile: any;
   imagePreview: any;
-  listOfOptions: Array<{label: string, value: string}> = [];
   listOfBrands = ["BMW", "AUDI", "FERRARI", "TESLA", "VOLVO", "TOYOTA", "HONDA", "FORD", "NISSAN", "HYUNDAI", "LEXUS", "KIA"];
   listOfTypes = ["Petrol", "Hybrid", "Diesel", "Electric", "CNG"];
   listOfColors = ["Red", "White", "Blue", "Black", "Orange", "Grey", "Silver"];
@@ -83,7 +82,7 @@ export class CarPostComponent {
         this.message.success("Car posted successfully", {nzDuration: 3500});
         this.router.navigateByUrl("/admin/dashboard")
         console.log(res);
-      }, error => {
+      }, (error: any) => {
         this.message.error("Error while posting car", {nzDuration: 3500});
       })
     } else {
@@ -94,7 +93,6 @@ export class CarPostComponent {
         }
       });
     }
-
   }
 
   onFileSelected(event: any) {
