@@ -75,21 +75,25 @@ export class UpdateCarComponent {
     })
   }
 
-  /*updateCar() {
+  updateCar() {
     if (this.updateCarForm.valid) {
       console.log(this.updateCarForm.value)
+      const year = new Date(this.updateCarForm.get("year")!.value);
       const formData: FormData = new FormData();
-      formData.append("image", this.selectedFile);
-      formData.append("brand", this.updateCarForm.get("brand")!.value)
-      formData.append("name", this.updateCarForm.get("name")!.value)
-      formData.append("type", this.updateCarForm.get("type")!.value)
-      formData.append("color", this.updateCarForm.get("color")!.value)
-      formData.append("year", this.updateCarForm.get("year")!.value)
-      formData.append("transmission", this.updateCarForm.get("transmission")!.value)
-      formData.append("description", this.updateCarForm.get("description")!.value)
-      formData.append("price", this.updateCarForm.get("price")!.value)
-      console.log(formData);
-      this.adminService.updateCar(formData, this.carId).subscribe(res => {
+
+      if (this.selectedFile) {
+        formData.append("image", this.selectedFile);
+      }
+      formData.append("brand", this.updateCarForm.get("brand")!.value);
+      formData.append("name", this.updateCarForm.get("name")!.value);
+      formData.append("type", this.updateCarForm.get("type")!.value);
+      formData.append("color", this.updateCarForm.get("color")!.value);
+      formData.append("year", year.toString());
+      formData.append("transmission", this.updateCarForm.get("transmission")!.value);
+      formData.append("description", this.updateCarForm.get("description")!.value);
+      formData.append("price", this.updateCarForm.get("price")!.value);
+
+      this.adminService.updateCar(this.carId, formData).subscribe(res => {
         this.message.success("Car updated successfully", {nzDuration: 3500});
         this.router.navigateByUrl("/admin/dashboard")
         console.log(res);
@@ -104,7 +108,7 @@ export class UpdateCarComponent {
         }
       });
     }
-  }*/
+  }
 
 
   onFileSelected(event: any) {

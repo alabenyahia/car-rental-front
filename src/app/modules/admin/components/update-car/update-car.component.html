@@ -1,11 +1,11 @@
 <div>
-  <form nz-form [formGroup]="updateCarForm"  class="post-car-form">
+  <form nz-form [formGroup]="updateCarForm"  (ngSubmit)="updateCar()" class="post-car-form">
     <h1 nz-typography>Update car</h1>
 
     <div>
       <img [src]="existingImage" alt="profile" width="170" height="170" style="margin-right: 24px"/>
       <label for="upload_profile_image" *ngIf="selectedFile">
-        <img [ngSrc]="imagePreview" alt="profile" width="170" height="170"/>
+        <img [src]="imagePreview" alt="profile" width="170" height="170"/>
 
       </label>
       <input type="file" nz-button  id="upload_profile_image" accept="image/x-png,image/gif,image/jpeg"
