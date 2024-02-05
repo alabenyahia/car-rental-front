@@ -1,0 +1,30 @@
+<div class="main-container">
+  <nz-table #basicTable [nzData]="bookings" [nzPageSize]="20" [nzShowPagination]="'false'">
+    <thead>
+      <tr>
+        <th style="font-weight: bold; color: #003973;">From</th>
+        <th style="font-weight: bold; color: #003973;">To</th>
+        <th style="font-weight: bold; color: #003973;">Days</th>
+        <th style="font-weight: bold; color: #003973;">Price</th>
+        <th style="font-weight: bold; color: #003973;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (booking of basicTable.data; track booking.id) {
+        <td>{{booking.fromDate | date : 'MMM d, y'}}</td>
+        <td>{{booking.toDate | date : 'MMM d, y'}}</td>
+        <td>{{booking.days}}</td>
+        <td>{{booking.price}}</td>
+
+        <td>
+          <strong [ngStyle]="{'color': booking.bookCarStatus === 'APPROVED' ? 'green' : booking.bookCarStatus === 'REJECTED' ? 'red' : 'blue'}">
+            {{booking.bookCarStatus}}
+          </strong>
+        </td>
+
+      } @empty {
+        Empty list of bookings
+      }
+    </tbody>
+  </nz-table>
+</div>

@@ -39,14 +39,11 @@ import {NzMessageService} from "ng-zorro-antd/message";
   styleUrl: './book-car.component.css'
 })
 export class BookCarComponent {
-
-
   constructor(private customerService: CostumerService,
               private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
               private message: NzMessageService,
-              private router: Router) {
-  }
+              private router: Router) {}
 
   carId: number = this.activatedRoute.snapshot.params["id"];
   car: any;
@@ -54,6 +51,7 @@ export class BookCarComponent {
   bookACarForm!: FormGroup;
   isSpinning = false;
   dateFormat = "dd-MM-YYYY";
+
   ngOnInit() {
     this.bookACarForm = this.fb.group({
       toDate: [null, Validators.required],
@@ -63,19 +61,15 @@ export class BookCarComponent {
   }
 
   getCarById() {
-
     this.customerService.getCarById(this.carId).subscribe(res => {
       console.log(res)
       this.processedImage = 'data:image/jpeg;base64,' + res.returnedImage;
       this.car = res;
     })
-
   }
 
   bookACar() {
     this.isSpinning = true;
-    //const formatedToDate =  this.datePipe.transform(new Date(this.bookACarForm.get("toDate")!.value), 'yyyy-MM-dd');
-    //const formatedFromDate =  this.datePipe.transform(new Date(this.bookACarForm.get("fromDate")!.value), 'yyyy-MM-dd');
 
     let bookACarDto = {
       toDate: this.bookACarForm.get("toDate")!.value,
@@ -89,11 +83,13 @@ export class BookCarComponent {
     this.customerService.bookACar(bookACarDto).subscribe(res => {
       console.log(res)
       this.message.success("Booking request submited successfully", {nzDuration: 3500});
+      this.isSpinning = false;
       this.router.navigateByUrl("/customer/dashboard");
     }, (error: any) => {
-      this.message.error("Something wrong happened!", {nzDuration: 3500})
+      this.message.error("Something wrong happened!", {nzDuration: 3500});
+      this.isSpinning = false;
     })
-    this.isSpinning = false;
+
   }
 
 }
