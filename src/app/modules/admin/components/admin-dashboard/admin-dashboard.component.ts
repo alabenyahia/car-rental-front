@@ -33,7 +33,7 @@ export class AdminDashboardComponent {
       console.log(res)
       this.cars = [];
       res.forEach((element: any) => {
-        element.processedImage = 'data:image/jpeg;base64,' + element.returnedImage;
+        element.processedImage = 'data:image/jpeg;base64,' + element.returnedImage
         this.cars.push(element);
       });
     })
