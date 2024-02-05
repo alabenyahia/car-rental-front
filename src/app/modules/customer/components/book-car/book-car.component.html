@@ -1,0 +1,57 @@
+<div class="main-container">
+  <h1 nz-typography>Book a car</h1>
+  @if (car) {
+    <div class="car-container">
+
+      <div class="car-img-container">
+        <img [src]="processedImage" alt="car image" width="220" height="160" />
+      </div>
+
+      <div class="car-info-container">
+        <div class="car-name-info-container">
+          <div>
+            <h2>{{car.brand}} - {{car.name}}</h2>
+            <p>{{car.description}}</p>
+          </div>
+        </div>
+
+        <div class="car-details-container">
+          <h5>Price: <b>{{car.price}}</b> - Color: <b>{{car.color}}</b> - Transmission: <b>{{car.transmission}}</b>
+            - Type: <b>{{car.type}}</b> - Year: <b>{{car.year | date: 'yyyy'}}</b></h5>
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <div class="form-container">
+    <nz-spin nzSimple [nzSpinning]="isSpinning" nzTip="Working..." [nzSize]="'small'"></nz-spin>
+    <form nz-form [formGroup]="bookACarForm" (ngSubmit)="bookACar()" class="post-car-form">
+      <div style="width: 100%">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please enter from date!">
+            <nz-date-picker style="width: 100%" [nzFormat]="dateFormat"  formControlName="fromDate" nzPlaceHolder="From date"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div style="width: 100%">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please enter to date!">
+            <nz-date-picker style="width: 100%" [nzFormat]="dateFormat" formControlName="toDate" nzPlaceHolder="To date"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div>
+        <nz-form-item>
+          <nz-form-control >
+            <button [disabled]="bookACarForm.invalid" nz-button nzType="primary">Book car</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </form>
+  </div>
+
+</div>
